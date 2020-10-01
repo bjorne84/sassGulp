@@ -1,4 +1,4 @@
-# Moment 2 Gulp och node.js
+# Moment 4 BABEL
 
 ## Automatiseringsprocess:
 Syftet är att förenkla processerna som man gör för alla webbprojekt. Det är exempelvis att minifiera filer, komprimera filer, slå samman filer. 
@@ -28,6 +28,8 @@ Minifierar html-filer. Jag har ställt så den plockar bort kommentarer, men lå
 Kompilerar sasskod till css, samt minifierar kod.
 * **npm Sass**  
 Biblotek som behövs för att automatiskt kunna kompila kod sasskod till css.
+* **"@babel/core**  
+Transpilerar kod från ES6 -> ES5.
 
 
 ## Instruktioner
