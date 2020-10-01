@@ -13,6 +13,8 @@ const imagemin = require('gulp-imagemin');
 const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
+const babel =  require("gulp-babel");
+const rename = require("gulp-rename");
 
 /* ---- Sökvägar ----
 
@@ -54,6 +56,27 @@ function jsTask() {
     .pipe(dest('pup/js')
     );
 }
+
+/* Babel JavaScript ES6->ES5
+Transpilerar ES6 kod till ES5
+Sammanslå och minifiera JS-filer, i concat-stadiet så ligger den bara
+i minnet, den skrivs in dest-stadiet, alltså main.js i pup skrivs först då, sourcemap körs för att man 
+skall kunna se från vilken fil koden kommer*/
+function babelTask() {
+    return src(files.jsPath)
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+        presets: ["@babel/preset-env"]
+      }))
+    .pipe(concat('main.js'))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('/.'))
+    .pipe(rename('main.min.js'))
+    .pipe(dest('pup/js'))
+    .pipe(browserSync.stream())
+}
+
+
 
 
 // Compile scss into css
@@ -118,7 +141,7 @@ function watchTask() {
     });
    
     watch([files.htmlPath, files.jsPath, files.imgPath], 
-        parallel(htmlTask, jsTask, imgTask)).on('change', browserSync.reload);
+        parallel(htmlTask, babelTask, imgTask)).on('change', browserSync.reload);
     watch(files.cssPath, cssTask).on('change', browserSync.reload);    
     watch(files.scssPath, sassTask); 
 
@@ -131,7 +154,7 @@ eller kommandopromten*/
 
 //default task
 exports.default = series(
-    parallel(htmlTask, jsTask, imgTask, sassTask),
+    parallel(htmlTask, babelTask, imgTask, sassTask),
     cssTask,
     watchTask
 );
