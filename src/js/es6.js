@@ -25,7 +25,7 @@ console.log(arr2);
 // Slå ihop, concatenate arrays
 let arr3 = [1, 5, 7];
 let arr4 = [2, 3, 6];
-arr5 = [...arr3, ...arr4];
+let arr5 = [...arr3, ...arr4];
 console.log(arr5);
 
 /* Destruction 

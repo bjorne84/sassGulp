@@ -71,7 +71,6 @@ function babelTask() {
     .pipe(concat('main.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write('/.'))
-    .pipe(rename('main.min.js'))
     .pipe(dest('pup/js'))
     .pipe(browserSync.stream())
 }

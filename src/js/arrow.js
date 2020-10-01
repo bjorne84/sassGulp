@@ -55,7 +55,7 @@ class Print {
 let printer = new Print('Tjena!S');
 printer.printMessageArrow();
 printer.printMessageFunction();
-console.log(this.message);
+//console.log(this.message);
 
 
 // Mosh on this keyword
